@@ -41,17 +41,18 @@
     </tr>
      </thead>
      <tbody>
-      <?php foreach($data as  $customer) {
+      <?php foreach($records as $value){
         echo "<pre>";
-        print_r($customer);
-        die;
+        print_r($value);
        ?>
+      
       <tr>
+       
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+         <td><?php echo $value['firstname']; ?></td>
+        <td><?php echo $value['email']; ?></td>
+        <td><?php echo $value['phonenumber']; ?></td>
         <td></td>
         <td></td>
         <td></td>

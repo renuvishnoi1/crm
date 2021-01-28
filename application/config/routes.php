@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 $route['admin/register']='admin/Authentication/register';
+$route['admin/contacts']='admin/ContactController/index';
