@@ -23,10 +23,19 @@
     <section class="content">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Contact List</h3>
+          <div class="_buttons">
+              <a href="<?php echo base_url('admin/add_contact') ?>" class="btn btn-info mright5 test pull-left display-block">
+                     New Customer</a>
+              <a href="" class="btn btn-info pull-left display-block mright5 hidden-xs">
+                     Import Customers</a>
+              <a href="" class="btn btn-info pull-left display-block mright5">
+                     Contacts</a>
+          </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
+         
+         <br>
       <table id="book-table" class="table table-bordered table-striped table-hover">
      <thead>
      <tr>
@@ -42,20 +51,20 @@
      </thead>
      <tbody>
       <?php foreach($records as $value){
-        echo "<pre>";
-        print_r($value);
+        // echo "<pre>";
+        // print_r($value);
        ?>
       
       <tr>
        
         <td></td>
-        <td></td>
+        <td><?php echo $value['company']; ?></td>
          <td><?php echo $value['firstname']; ?></td>
         <td><?php echo $value['email']; ?></td>
         <td><?php echo $value['phonenumber']; ?></td>
         <td></td>
         <td></td>
-        <td></td>
+        <td><?php echo $value['datecreated']; ?></td>
       </tr>
       <?php 
         

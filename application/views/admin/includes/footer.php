@@ -1,10 +1,10 @@
  <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+   <!--  <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.5
-    </div>
+    </div> -->
   </footer>
 
   <!-- Control Sidebar -->
@@ -49,5 +49,7 @@
 <script src="<?php echo base_url() ?>assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url() ?>assets/dist/js/demo.js"></script>
+<!-- select 2 -->
+<script src="<?php echo base_url() ?>assets/plugins/select2/js/select2.full.min.js"></script>
 </body>
 </html>
