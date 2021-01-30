@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class ContactController extends CI_Controller
@@ -22,7 +21,7 @@ class ContactController extends CI_Controller
        $data['country'] = $this->ContactsModel->get_countries();
        $data['currencies'] = $this->ContactsModel->get_currencies();
        // echo "<pre>";
-       // print_r($data);get_currencies
+       // print_r($data);
        // die();
       $this->load->view('admin/contacts/add_contact',$data);
     }
@@ -31,7 +30,7 @@ class ContactController extends CI_Controller
       // print_r($_POST);
       // die();
       $this->form_validation->set_rules('company','Company','trim|required');
-      if ($this->form_validation->run() == FALSE)
+      if ($this->form_validation->run('add_contact') == FALSE)
                 {
               $this->load->view('admin/contacts/add_contact');
                 }
@@ -64,7 +63,6 @@ class ContactController extends CI_Controller
                   'vat'=>$vat,
                   'phonenumber'=>$phonenumber,
                   'website'=>$website,
-                  'group' => $group,
                   'default_currency'=>$default_currency,
                   'default_language' =>$default_language,
                   'address'=>$address,
@@ -85,6 +83,18 @@ class ContactController extends CI_Controller
                 );
 
                 $insert_contact = $this->ContactsModel->addContact($data);
+                if($insert_contact){
+                  if(is_array($group)){
+
+
+                  foreach ($group as $key => $value) {
+                    $groupdata=array();
+                    $groupdata['customer_id']=$insert_contact;
+                    $groupdata['groupid']=$value;
+                    $this->ContactsModel->add_group($groupdata);
+                  }
+                   }
+                }
                 }
     }
 

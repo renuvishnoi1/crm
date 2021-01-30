@@ -33,4 +33,18 @@ function admin_url($url = '')
 
     return site_url($adminURI . '/' . $url);
 }
+function list_folders($path)
+{
+    $folders = [];
+    foreach (new DirectoryIterator($path) as $file) {
+        if ($file->isDot()) {
+            continue;
+        }
+        if ($file->isDir()) {
+            array_push($folders, $file->getFilename());
+        }
+    }
+
+    return $folders;
+}
 ?>

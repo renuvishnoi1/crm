@@ -47,10 +47,11 @@
                 <div class="form-group">
                   <label>Company</label>
                <input type="text" name="company" class="form-control" >
+               <span class="text-danger"><?php echo form_error('company'); ?></span>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Vat no</label>
+                  <label>Vat Numnber</label>
                      <input type="text" name="vat" class="form-control" >               
                 </div>
                  <div class="form-group">
@@ -84,11 +85,24 @@
                 </div>
                 <div class="form-group">
                   <label>Default Language</label>
-                  <select class="form-control select2bs4" name="default_language" style="width: 100%;">
+                 <!--  <select class="form-control select2bs4" name="default_language" style="width: 100%;">
                     <option selected="selected">Alabama</option>
                     <option>Alaska</option>
                     
-                  </select>            
+                  </select>  -->  
+                  <select name="default_language" id="default_language" class="form-control selectpicker" >
+                      
+                        <?php foreach($this->app->get_available_languages() as $availableLanguage){
+                           $selected = '';
+                           if(isset($client)){
+                              if($client->default_language == $availableLanguage){
+                                 $selected = 'selected';
+                              }
+                           }
+                           ?>
+                        <option value="<?php echo $availableLanguage; ?>" <?php echo $selected; ?>><?php echo ucfirst($availableLanguage); ?></option>
+                        <?php } ?>
+                     </select>         
                 </div>
                 <!-- /.form-group -->
               </div>
