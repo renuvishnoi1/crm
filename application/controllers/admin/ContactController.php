@@ -22,7 +22,7 @@ class ContactController extends CI_Controller
        $data['country'] = $this->ContactsModel->get_countries();
        $data['currencies'] = $this->ContactsModel->get_currencies();
        // echo "<pre>";
-       // print_r($data);get_currencies
+       // print_r($data);
        // die();
       $this->load->view('admin/contacts/add_contact',$data);
     }
