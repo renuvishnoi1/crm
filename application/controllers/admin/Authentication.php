@@ -57,6 +57,9 @@ class Authentication extends CI_Controller
         $this->session->unset_userdata('user');  
         redirect("admin/login");  
     } 
+    public function admin_register(){
+        
+    }
 
    
 }

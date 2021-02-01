@@ -56,6 +56,11 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['admin/register']='admin/Authentication/register';
 $route['admin/login']='admin/Authentication/login';
-$route['admin/contacts']='admin/ContactController/index';
-$route['admin/add_contact'] = 'admin/ContactController/add_contact';
-$route['admin/add_contact_data'] = 'admin/ContactController/insert_contact_data';
+$route['admin/clients']='admin/ContactController/index';
+$route['admin/add_client'] = 'admin/ContactController/addClient';
+$route['admin/add_client_data'] = 'admin/ContactController/insertClient';
+$route['admin/edit_client/(:any)'] = 'admin/ContactController/editClient/$1';
+
+$route['admin/all_contact'] = 'admin/ContactController/allContact';
+
+$route['admin/edit_contact/(:any)'] = 'admin/ContactController/editContact/$1';

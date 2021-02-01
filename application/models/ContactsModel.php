@@ -35,9 +35,9 @@ class ContactsModel extends CI_Model
         return $this->db->get(db_prefix() . 'clients')->result_array();
     }
 
-public function get_contacts(){
+public function getClients(){
 
-        $this->db->select('tblcontacts.firstname,tblcontacts.lastname,tblcontacts.email,tblcontacts.phonenumber,tblclients.company,tblclients.active,tblclients.datecreated');
+        $this->db->select('tblcontacts.firstname,tblcontacts.lastname,tblcontacts.email,tblclients.*');
         $this->db->from('tblclients');
         $this->db->join('tblcontacts', 'tblcontacts.id = tblclients.userid ');
         $this->db->where('tblcontacts.is_primary',1);
@@ -57,13 +57,31 @@ public function get_contacts(){
         $query = $this->db->get('tblcurrencies');
             return $query->result_array();
      }
-     public function addContact($data){
+     public function addClient($data){
         $this->db->insert('tblclients',$data);
          $insert_id = $this->db->insert_id();
         return  $insert_id;
      }
      public function add_group($data){
         $this->db->insert('tblcustomer_groups',$data);
+     }
+     public function get_all_contacts(){
+        $this->db->select('tblcontacts.*,tblclients.company');
+        $this->db->from('tblcontacts');
+        $this->db->join('tblclients', 'tblclients.userid  = tblcontacts.userid ');
+        
+        $this->db->order_by('tblcontacts.userid', 'DESC');
+        $result = $this->db->get();
+        return $result->result_array();
+     }
+     public function getContactById($id){
+        $this->db->select('tblcontacts.*,tblclients.company');
+        $this->db->from('tblcontacts');
+        $this->db->join('tblclients', 'tblclients.userid  = tblcontacts.userid ');
+        
+        $this->db->where('tblcontacts.id',$id);
+        $result = $this->db->get();
+        return $result->result_array();
      }
 }
 ?>

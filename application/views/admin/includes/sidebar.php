@@ -35,10 +35,10 @@
            
           </li>
            <li class="nav-item ">
-            <a href="<?php echo base_url('admin/contacts') ?>" class="nav-link ">
+            <a href="<?php echo base_url('admin/clients') ?>" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Contacts
+                Customers
                 <!-- <i class="right fas fa-angle-left"></i> -->
               </p>
             </a>

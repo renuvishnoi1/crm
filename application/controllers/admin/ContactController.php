@@ -12,27 +12,27 @@ class ContactController extends CI_Controller
 
     public function index()
     {
-        $data['records']= $this->ContactsModel->get_contacts();
-
-      $this->load->view('admin/contacts/contact_list',$data); 
+        $data['records']= $this->ContactsModel->getClients();
+// echo "<pre>";
+//        print_r($data);
+//        die();
+      $this->load->view('admin/contacts/client_list',$data); 
     }
-    public function add_contact(){
+    public function addClient(){
        $data['groups'] = $this->ContactsModel->get_costomer_groups();
        $data['country'] = $this->ContactsModel->get_countries();
        $data['currencies'] = $this->ContactsModel->get_currencies();
-       // echo "<pre>";
-       // print_r($data);
-       // die();
-      $this->load->view('admin/contacts/add_contact',$data);
+       
+      $this->load->view('admin/contacts/add_client',$data);
     }
-    public function insert_contact_data(){
+    public function insertClient(){
       // echo "<pre>";
       // print_r($_POST);
       // die();
       $this->form_validation->set_rules('company','Company','trim|required');
       if ($this->form_validation->run('add_contact') == FALSE)
                 {
-              $this->load->view('admin/contacts/add_contact');
+              $this->load->view('admin/contacts/add_client');
                 }
                 else
                 {
@@ -82,7 +82,7 @@ class ContactController extends CI_Controller
                   'shipping_country'=>$shipping_country
                 );
 
-                $insert_contact = $this->ContactsModel->addContact($data);
+                $insert_contact = $this->ContactsModel->addClient($data);
                 if($insert_contact){
                   if(is_array($group)){
 
@@ -96,7 +96,27 @@ class ContactController extends CI_Controller
                    }
                 }
                 }
-    }
+            }
+            public function allContact(){
+               $data['records']= $this->ContactsModel->get_all_contacts();
+              $this->load->view('admin/contacts/contact_details/all_contact',$data);
+            }
+            public function editClient($id){
+              //$data['profile']= 
+             $this->load->view('admin/contacts/client_profile');
+            }
+            public function delete($id){
+
+            }
+           
+       public function editContact($id){
+           
+        $data = $this->ContactsModel->getContactById($id);
+       //  echo "<pre>";
+       // print_r($data);
+       //  die;
+        $this->load->view('admin/contacts/contact_details/edit_contact',$data);
+      }
 
     
    
