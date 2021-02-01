@@ -81,7 +81,14 @@ public function getClients(){
         
         $this->db->where('tblcontacts.id',$id);
         $result = $this->db->get();
-        return $result->result_array();
+        return $result->row();
+     }
+
+
+    // update contact data
+     public function updateContact($id,$data){
+        $this->db->where('id',$id);
+        
      }
 }
 ?>

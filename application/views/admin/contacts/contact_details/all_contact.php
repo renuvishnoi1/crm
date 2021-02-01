@@ -38,8 +38,7 @@
      </thead>
      <tbody>
       <?php foreach($records as $value){
-        // echo "<pre>";
-        // print_r($value);
+      
        ?>
       
       <tr>
@@ -59,7 +58,7 @@
           <?php echo $value['last_login']; ?></td>
           <td></td>
         <td>
-                        <a href="<?php echo base_url('admin/edit_contact/') ?><?php echo $value['id']; ?>" title="show">
+          <a href="<?php echo base_url('admin/edit_contact/') ?><?php echo $value['id']; ?>" title="show">
                             Edit
                         </a>
                         <a href="" title="show" class="">

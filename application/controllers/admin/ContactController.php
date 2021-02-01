@@ -13,9 +13,7 @@ class ContactController extends CI_Controller
     public function index()
     {
         $data['records']= $this->ContactsModel->getClients();
-// echo "<pre>";
-//        print_r($data);
-//        die();
+
       $this->load->view('admin/contacts/client_list',$data); 
     }
     public function addClient(){
@@ -26,11 +24,8 @@ class ContactController extends CI_Controller
       $this->load->view('admin/contacts/add_client',$data);
     }
     public function insertClient(){
-      // echo "<pre>";
-      // print_r($_POST);
-      // die();
-      $this->form_validation->set_rules('company','Company','trim|required');
-      if ($this->form_validation->run('add_contact') == FALSE)
+      
+      if ($this->form_validation->run('add_client') == FALSE)
                 {
               $this->load->view('admin/contacts/add_client');
                 }
@@ -86,7 +81,6 @@ class ContactController extends CI_Controller
                 if($insert_contact){
                   if(is_array($group)){
 
-
                   foreach ($group as $key => $value) {
                     $groupdata=array();
                     $groupdata['customer_id']=$insert_contact;
@@ -111,12 +105,56 @@ class ContactController extends CI_Controller
            
        public function editContact($id){
            
-        $data = $this->ContactsModel->getContactById($id);
-       //  echo "<pre>";
-       // print_r($data);
-       //  die;
+        $data['contact'] = $this->ContactsModel->getContactById($id);
+       
         $this->load->view('admin/contacts/contact_details/edit_contact',$data);
       }
+      public function updateContact(){
+       if ($this->form_validation->run('edit_contact') == FALSE){
+           
+       }else{
+         $f_name = $this->input->post('firstname');
+         $l_name = $this->input->post('lastname');
+         $phone = $this->input->post('phonenumber');
+         $email = $this->input->post('email');
+         $position = $this->input->post('title');
+         $direction = $this->input->post('direction');
+         $pass = $this->input->post('password');
+         $id = $this->input->post('id');
+         $data['firstname'] = $f_name;
+         $data['lastname'] = $l_name;
+         $data['email'] = $email;
+         $data['title'] = $position;
+         $data['direction'] = $direction;
+         $udateData = $this->ContactsModel->updateContact($id,$data);
+       }
+      }
+
+
+      public function resizeImage($filename)
+   {
+      $source_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $filename;
+      $target_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/thumbnail/';
+      $config_manip = array(
+          'image_library' => 'gd2',
+          'source_image' => $source_path,
+          'new_image' => $target_path,
+          'maintain_ratio' => TRUE,
+          'create_thumb' => TRUE,
+          'thumb_marker' => '_thumb',
+          'width' => 150,
+          'height' => 150
+      );
+
+
+      $this->load->library('image_lib', $config_manip);
+      if (!$this->image_lib->resize()) {
+          echo $this->image_lib->display_errors();
+      }
+
+
+      $this->image_lib->clear();
+   }
 
     
    
