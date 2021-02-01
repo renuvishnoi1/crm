@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require APPPATH . 'libraries/App.php';
 /*
 | -------------------------------------------------------------------
 | AUTO-LOADER
@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database','form_validation');
+$autoload['libraries'] = array('database','form_validation','App','session');
 
 /*
 | -------------------------------------------------------------------

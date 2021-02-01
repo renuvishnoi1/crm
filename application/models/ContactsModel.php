@@ -59,6 +59,11 @@ public function get_contacts(){
      }
      public function addContact($data){
         $this->db->insert('tblclients',$data);
+         $insert_id = $this->db->insert_id();
+        return  $insert_id;
+     }
+     public function add_group($data){
+        $this->db->insert('tblcustomer_groups',$data);
      }
 }
 ?>
