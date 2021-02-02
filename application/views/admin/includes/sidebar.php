@@ -35,7 +35,7 @@
            
           </li>
            <li class="nav-item ">
-            <a href="<?php echo base_url('admin/clients') ?>" class="nav-link ">
+            <a href="<?php echo base_url('admin/clients') ?>"  class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Customers

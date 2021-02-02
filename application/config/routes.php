@@ -65,3 +65,6 @@ $route['admin/all_contact'] = 'admin/ContactController/allContact';
 
 $route['admin/edit_contact/(:any)'] = 'admin/ContactController/editContact/$1';
 $route['admin/update_contact'] = 'admin/ContactController/updateContact';
+$route['admin/add_contact'] = 'admin/ContactController/addContact';
+$route['admin/edit_contact_list/(:any)'] = 'admin/ContactController/viewContactlistById/$1';
+

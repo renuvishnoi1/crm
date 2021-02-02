@@ -28,13 +28,13 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <form action="<?php echo base_url(); ?>" method="POST" enctype="multipart/form-data">
+          <form action="<?php echo base_url('admin/update_contact'); ?>" method="POST" enctype="multipart/form-data">
            <div class="row">
           
               <div class="col-md-6">
                  <div class="form-group">
                   <label>Profile Image</label>
-               <input type="file" name="profile_image" class="form-control">
+               <input type="file" name="image" class="form-control">
                </div>
                 <div class="form-group">
                   <label>First Name</label>

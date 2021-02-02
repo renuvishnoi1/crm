@@ -65,11 +65,13 @@ public function getClients(){
      public function add_group($data){
         $this->db->insert('tblcustomer_groups',$data);
      }
-     public function get_all_contacts(){
+     public function get_all_contacts($id=null){
         $this->db->select('tblcontacts.*,tblclients.company');
         $this->db->from('tblcontacts');
         $this->db->join('tblclients', 'tblclients.userid  = tblcontacts.userid ');
-        
+        if($id != ''){
+            $this->db->where('tblcontacts.userid',$id);
+        }
         $this->db->order_by('tblcontacts.userid', 'DESC');
         $result = $this->db->get();
         return $result->result_array();
@@ -89,6 +91,12 @@ public function getClients(){
      public function updateContact($id,$data){
         $this->db->where('id',$id);
         
+     }
+
+     public function getDataById($id){
+         $this->db->where('userid', $id);
+            $client = $this->db->get('tblclients')->row();
+            return $client;
      }
 }
 ?>

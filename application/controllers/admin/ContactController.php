@@ -96,19 +96,43 @@ class ContactController extends CI_Controller
               $this->load->view('admin/contacts/contact_details/all_contact',$data);
             }
             public function editClient($id){
-              //$data['profile']= 
-             $this->load->view('admin/contacts/client_profile');
+              if($id != ''){
+                $data['contact'] = $this->ContactsModel->getDataById($id);
+               //  echo "<pre>";
+               // print_r($data);
+               // die;
+                 $this->load->view('admin/contacts/edit_client_profile',$data);
+              }
+
             }
-            public function delete($id){
+
+             public function viewContactlistById($id){
+              $data['contact'] = $this->ContactsModel->getDataById($id);
+              $data['records']= $this->ContactsModel->get_all_contacts($id);
+            //   echo "<pre>";
+            // print_r($data);
+            // die;
+              $this->load->view('admin/contacts/edit_client_contact',$data);
+        
+      }
+            public function deleteClient($id){
 
             }
            
        public function editContact($id){
            
         $data['contact'] = $this->ContactsModel->getContactById($id);
+        $data['groups'] = $this->ContactsModel->get_costomer_groups();
+       $data['country'] = $this->ContactsModel->get_countries();
+       $data['currencies'] = $this->ContactsModel->get_currencies();
        
         $this->load->view('admin/contacts/contact_details/edit_contact',$data);
       }
+       public function addContact(){
+              $this->load->view('admin/contacts/contact_details/add_contact');
+            }
+
+
       public function updateContact(){
        if ($this->form_validation->run('edit_contact') == FALSE){
            
@@ -126,6 +150,17 @@ class ContactController extends CI_Controller
          $data['email'] = $email;
          $data['title'] = $position;
          $data['direction'] = $direction;
+
+         if(!empty($_FILES['image']['name'])){ 
+          // File upload config 
+
+                $config['upload_path']   = 'uploads/client_profile_image/'; 
+                $config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PN'; 
+                  // print_r($config);
+                  // die;
+                // Load and initialize upload library 
+                $this->load->library('upload', $config); 
+         }
          $udateData = $this->ContactsModel->updateContact($id,$data);
        }
       }
