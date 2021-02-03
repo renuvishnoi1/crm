@@ -33,10 +33,11 @@
           </div>
         </div>
         <!-- /.card-header -->
-        <div class="card-body">
+        <div class="card-body ">
          
          <br>
-      <table id="book-table" class="table table-bordered table-striped table-hover">
+         <div class="table-responsive">
+      <table id="example1" class="table table-bordered table-striped table-hover ">
      <thead>
      <tr>
       <th>#</th>
@@ -58,7 +59,7 @@
       
       <tr>
        
-        <td></td>
+        <td><?php echo $value['userid']; ?></td>
         <td><?php echo $value['company']; ?></td>
          <td><?php echo $value['firstname']; ?></td>
         <td><?php echo $value['email']; ?></td>
@@ -66,22 +67,18 @@
         <td></td>
         <td></td>
         <td><?php echo $value['datecreated']; ?></td>
-        <td><a href="<?php echo base_url(); ?>" title="show">
-                            view
-                        </a>
-                        <a href="<?php echo base_url('admin/edit_client/') ?><?php echo $value["userid"]; ?>" title="show">
-                            contacts
-                        </a>
-                        <a href="" title="show" class="">
-                            delete
-                        </a>
+        <td>
+          <a href="<?php echo base_url('admin/edit_client/') ?><?php echo $value["userid"]; ?>" title="show">view </a>
+          <a href="<?php echo base_url('admin/edit_client/') ?><?php echo $value["userid"]; ?>" title="show">contacts</a>
+          <a href="<?php echo base_url('admin/delete_client/') ?><?php echo $value["userid"]; ?>" title="show" class="">delete</a>
        </td>
       </tr>
       <?php 
         
       } ?>
      </tbody>
-     </table>      
+     </table> 
+     </div>     
         </div>
         <!-- /.card-body -->
       </div>
@@ -89,24 +86,7 @@
     </section>
     <!-- /.content -->
   </div>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script> 
-<!-- jQuery -->
-<script src="<?php echo base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url() ?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- jsGrid -->
-<script src="<?php echo base_url() ?>assets/plugins/jsgrid/demos/db.js"></script>
-<script src="<?php echo base_url() ?>assets/plugins/jsgrid/jsgrid.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url() ?>assets/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url() ?>assets/dist/js/demo.js"></script>
+ <?php init_tail(); ?>
 <!-- page script -->
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#book-table').DataTable();
-});
-</script>
+
 

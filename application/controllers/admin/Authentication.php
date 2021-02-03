@@ -24,25 +24,24 @@ class Authentication extends CI_Controller
 
     public function login()
     {
-
+        $data['title'] = "Login";
      
      if ($this->input->post()) {
             if ($this->form_validation->run('login') !== false) {
 
                 $email= $this->input->post('email');
                 $password = $this->input->post('password');
-                $data = $this->Authentication_Model->login($email,hash($password));
+                $data = $this->Authentication_Model->login($email,$password);
 
             if($data){
-                echo "<pre>";
-            print_r($data);
-            die();
+
+               redirect('admin/dashboard');
             }
             }else{
-              $this->load->view('login');
+              $this->load->view('login',$data);
             }
         }else{
-            $this->load->view('login');
+            $this->load->view('login',$data);
         }
        
     }

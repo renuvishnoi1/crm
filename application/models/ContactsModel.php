@@ -6,34 +6,34 @@ class ContactsModel extends CI_Model
 {
  
    
-    public function get($id = '', $where = [])
-    {
-        $this->db->select(implode(',', prefixed_table_fields_array(db_prefix() . 'clients')) . ',' . get_sql_select_client_company());
+    // public function get($id = '', $where = [])
+    // {
+    //     $this->db->select(implode(',', prefixed_table_fields_array(db_prefix() . 'clients')) . ',' . get_sql_select_client_company());
 
-        $this->db->join(db_prefix() . 'countries', '' . db_prefix() . 'countries.country_id = ' . db_prefix() . 'clients.country', 'left');
-        $this->db->join(db_prefix() . 'contacts', '' . db_prefix() . 'contacts.userid = ' . db_prefix() . 'clients.userid AND is_primary = 1', 'left');
+    //     $this->db->join(db_prefix() . 'countries', '' . db_prefix() . 'countries.country_id = ' . db_prefix() . 'clients.country', 'left');
+    //     $this->db->join(db_prefix() . 'contacts', '' . db_prefix() . 'contacts.userid = ' . db_prefix() . 'clients.userid AND is_primary = 1', 'left');
 
-        if ((is_array($where) && count($where) > 0) || (is_string($where) && $where != '')) {
-            $this->db->where($where);
-        }
+    //     if ((is_array($where) && count($where) > 0) || (is_string($where) && $where != '')) {
+    //         $this->db->where($where);
+    //     }
 
-        if (is_numeric($id)) {
-            $this->db->where(db_prefix() . 'clients.userid', $id);
-            $client = $this->db->get(db_prefix() . 'clients')->row();
+    //     if (is_numeric($id)) {
+    //         $this->db->where(db_prefix() . 'clients.userid', $id);
+    //         $client = $this->db->get(db_prefix() . 'clients')->row();
 
-            if ($client && get_option('company_requires_vat_number_field') == 0) {
-                $client->vat = null;
-            }
+    //         if ($client && get_option('company_requires_vat_number_field') == 0) {
+    //             $client->vat = null;
+    //         }
 
-            $GLOBALS['client'] = $client;
+    //         $GLOBALS['client'] = $client;
 
-            return $client;
-        }
+    //         return $client;
+    //     }
 
-        $this->db->order_by('company', 'asc');
+    //     $this->db->order_by('company', 'asc');
 
-        return $this->db->get(db_prefix() . 'clients')->result_array();
-    }
+    //     return $this->db->get(db_prefix() . 'clients')->result_array();
+    // }
 
 public function getClients(){
 
@@ -44,7 +44,9 @@ public function getClients(){
         $this->db->order_by('tblcontacts.is_primary', 'DESC');
         $result = $this->db->get();
         return $result->result_array();
+
     }
+ 
     public function get_costomer_groups(){
         $query = $this->db->get('tblcustomers_groups');
         return $query->result_array();
@@ -98,5 +100,24 @@ public function getClients(){
             $client = $this->db->get('tblclients')->row();
             return $client;
      }
+     public function deleteContact($customer_id,$contact_id){
+        $this->db->where('id',$contact_id);
+        $this->db->where('userid',$customer_id);
+       $query =  $this->db->delete('tblcontacts');
+       return $query;
+     }
+     public function deleteClient($customer_id){
+        $this->db->where('tblclients.userid',$customer_id);
+        $this->db->where('tblcontacts.userid',$customer_id);
+       $query = $this->db->delete(array('tblclients','tblcontacts'));
+       return $query;
+     }
+     public function updateClientStatus($course_id,$status){
+  $data['active'] = $status;
+  $this->db->where('userid', $course_id);
+  $query = $this->db->update('tblclients',$data);
+  return $query;
+}
+
 }
 ?>

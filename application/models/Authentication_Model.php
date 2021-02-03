@@ -23,24 +23,16 @@ class Authentication_model extends CI_Model
     public function login($email, $password)
     {
 
-         if ((!empty($email)) && (!empty($password))) {            
-            
-                $table = db_prefix() . 'staff'; 
+        $this->db->where('email', $email);
+         $query = $this->db->get('tblstaff');
+         $result = $query->row_array(); // get the row first
 
-                $this->db->where('email', $email);
-                $this->db->where('password', $password);
-            $user = $this->db->get($table)->row();
-            //echo $this->db->last_query();
-        if ($user->num_rows() == 1)  
-        {   
-            //return $query->result();
-             return true; 
-
-        } else {  
-            return false;  
-        } 
-            
-            }
+    if (!empty($result) && password_verify($password, $result['password'])) {
+        // if this username exists, and the input password is verified using password_verify
+        return $result;
+    } else {
+        return false;
+    }
 
     }
 

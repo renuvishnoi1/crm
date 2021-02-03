@@ -25,13 +25,8 @@
             <div class="card-body">
             <h4>Profile</h4>
             <div class="row">
-              <div class="col-5 col-sm-3">
-                <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
-                  <a class="nav-link" href="<?php echo base_url('admin/edit_client/') ?><?php echo $contact->userid ?>">Profile</a>
-                  
-                  <a class="nav-link" href="<?php echo base_url('admin/edit_contact_list/') ?><?php echo $contact->userid ?>">Contacts</a>
-                </div>
-              </div>
+             
+             <?php $this->load->view('admin/contacts/profile_sidebar');?>
               <div class="col-7 col-sm-9">
                 <div class="tab-content" id="vert-tabs-tabContent">
                   <div class="tab-pane text-left fade show active" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
@@ -41,7 +36,7 @@
                 </div>
         <!-- /.card-header -->
         <div class="card-body">
-          
+          <form action="<?php echo base_url('admin/update_client_data'); ?>" method="POST" enctype="multipart/form-data">
             <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Customer Details</a>
@@ -229,21 +224,23 @@
             Save  </button>
                        
                      </div>
-
+</form>
       </div>
-       <div class="card-footer">
+    <div class="card-footer">
                  <!--  <button type="submit" class="btn btn-primary">Submit</button> -->
                
                 </div>
     </div>
+  </div>
                   </div>
                 
                 </div>
+             <!--  -->
               </div>
             </div>
            
           </div>
-           </div>
+         
       <!-- /.card -->
     </section>
     <!-- /.content -->

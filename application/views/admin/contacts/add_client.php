@@ -76,6 +76,7 @@
                   <div class="form-group">
                   <label>Currency</label>
                   <select class="form-control select2bs4" name="default_currency" style="width: 100%;">
+                    <option value="0">Select Currency</option>
                    <?php foreach($currencies as $currency) {
                       ?>
                     <option value="<?php echo $currency['id']; ?>"><?php echo $currency['name']; ?></option>
@@ -128,6 +129,7 @@
                 <div class="form-group">
                   <label>Country</label>
                   <select class="form-control select2bs4" name="country" style="width: 100%;">
+                    <option value="0">Select Country</option>
                     <?php foreach($country as $countries){
                       ?>
                     <option value="<?php echo $countries['country_id'] ?>"><?php echo $countries['short_name'] ?></option>
@@ -216,8 +218,8 @@
         <div class="btn-bottom-toolbar btn-toolbar-container-out text-right">
             <button class="btn btn-info only-save customer-form-submiter">
             Save            </button>
-                        <button class="btn btn-info save-and-add-contact customer-form-submiter">
-            Save and create contact            </button>
+                       <!--  <button class="btn btn-info save-and-add-contact customer-form-submiter">
+            Save and create contact            </button> -->
                      </div>
       </form>
       </div>

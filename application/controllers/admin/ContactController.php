@@ -12,6 +12,7 @@ class ContactController extends CI_Controller
 
     public function index()
     {
+        $data['title'] = "Customers";
         $data['records']= $this->ContactsModel->getClients();
 
       $this->load->view('admin/contacts/client_list',$data); 
@@ -20,17 +21,19 @@ class ContactController extends CI_Controller
        $data['groups'] = $this->ContactsModel->get_costomer_groups();
        $data['country'] = $this->ContactsModel->get_countries();
        $data['currencies'] = $this->ContactsModel->get_currencies();
-       
+       $data['title'] = "Add Customers";
       $this->load->view('admin/contacts/add_client',$data);
     }
     public function insertClient(){
       
       if ($this->form_validation->run('add_client') == FALSE)
                 {
-              $this->load->view('admin/contacts/add_client');
+                  $data['title'] = "Add Customers";
+              $this->load->view('admin/contacts/add_client',$data);
                 }
                 else
                 {
+
                 $company= $this->input->post('company');
                 $vat= $this->input->post('vat');
                 $phonenumber= $this->input->post('phonenumber');
@@ -53,6 +56,7 @@ class ContactController extends CI_Controller
                 $shipping_city = $this->input->post('shipping_city');
                 $shipping_zip = $this->input->post('shipping_zip');
                 $shipping_country = $this->input->post('shipping_country');
+                $datecreated = date('Y-m-d H:i:s');
                 $data = array(
                   'company'=>$company,
                   'vat'=>$vat,
@@ -74,7 +78,8 @@ class ContactController extends CI_Controller
                   'shipping_state' =>$shipping_state,
                   'shipping_city'=>$shipping_city,
                   'shipping_zip'=>$shipping_zip,
-                  'shipping_country'=>$shipping_country
+                  'shipping_country'=>$shipping_country,
+                  'datecreated'=>$datecreated
                 );
 
                 $insert_contact = $this->ContactsModel->addClient($data);
@@ -85,28 +90,47 @@ class ContactController extends CI_Controller
                     $groupdata=array();
                     $groupdata['customer_id']=$insert_contact;
                     $groupdata['groupid']=$value;
-                    $this->ContactsModel->add_group($groupdata);
+                    $group= $this->ContactsModel->add_group($groupdata);
+                    // print_r($group);
+                    // die('hi');
+                    if($group){
+                      redirect('admin/clients');
+                    }
                   }
                    }
+                   redirect('admin/clients');
                 }
                 }
             }
             public function allContact(){
+              $data['title'] = "Contacts";
                $data['records']= $this->ContactsModel->get_all_contacts();
               $this->load->view('admin/contacts/contact_details/all_contact',$data);
             }
+            /****edit customer *****/
             public function editClient($id){
               if($id != ''){
+                $data['title'] = "Edit Costomer";
                 $data['contact'] = $this->ContactsModel->getDataById($id);
-               //  echo "<pre>";
-               // print_r($data);
-               // die;
+                 $data['groups'] = $this->ContactsModel->get_costomer_groups();
+                 $data['country'] = $this->ContactsModel->get_countries();
+                 $data['currencies'] = $this->ContactsModel->get_currencies();
+              
                  $this->load->view('admin/contacts/edit_client_profile',$data);
               }
+              /********update customer *****/
 
+            }
+            // delete customer and customer's contacts
+            public function deleteClient($customer_id){
+              $deleteClient = $this->ContactsModel->deleteClient($customer_id);
+              if($deleteClient){
+                return redirect('admin/clients');
+              }
             }
 
              public function viewContactlistById($id){
+
               $data['contact'] = $this->ContactsModel->getDataById($id);
               $data['records']= $this->ContactsModel->get_all_contacts($id);
             //   echo "<pre>";
@@ -115,22 +139,27 @@ class ContactController extends CI_Controller
               $this->load->view('admin/contacts/edit_client_contact',$data);
         
       }
-            public function deleteClient($id){
+      // delete contact by customer id and contact id
+         public function deleteContact($customer_id,$contact_id){
+              $contactDelete = $this->ContactsModel->deleteContact($customer_id,$contact_id);
+              if($contactDelete){
+                return redirect('admin/all_contact');
+              }
 
             }
-           
+        public function addContact(){
+            $data['title'] = "Add Contact";
+              $this->load->view('admin/contacts/contact_details/add_contact',$data);
+            }
+            public function inserContact(){
+
+            }   
        public function editContact($id){
-           
+        $data['title'] = "Edit Contact";
         $data['contact'] = $this->ContactsModel->getContactById($id);
-        $data['groups'] = $this->ContactsModel->get_costomer_groups();
-       $data['country'] = $this->ContactsModel->get_countries();
-       $data['currencies'] = $this->ContactsModel->get_currencies();
-       
         $this->load->view('admin/contacts/contact_details/edit_contact',$data);
       }
-       public function addContact(){
-              $this->load->view('admin/contacts/contact_details/add_contact');
-            }
+       
 
 
       public function updateContact(){
@@ -153,19 +182,35 @@ class ContactController extends CI_Controller
 
          if(!empty($_FILES['image']['name'])){ 
           // File upload config 
-
+                 $filename =$_FILES['image']['name'];
                 $config['upload_path']   = 'uploads/client_profile_image/'; 
                 $config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PN'; 
                   // print_r($config);
                   // die;
                 // Load and initialize upload library 
-                $this->load->library('upload', $config); 
+                $this->load->library('upload', $config);
+                $image=$this->upload->do_upload();
+
+                 
          }
+         print_r($image);
          $udateData = $this->ContactsModel->updateContact($id,$data);
        }
       }
+     
+      public function updateClientStatus($client_id){
+
+    $status = $this->input->post('status');
+   
+    $status= $this->ContactsModel->updateClientStatus($client_id,$status);
+    if($status){
+      redirect('admin/clients');
+    }
+      }
+      public function updateClient(){
 
 
+      }
       public function resizeImage($filename)
    {
       $source_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $filename;

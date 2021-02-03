@@ -51,5 +51,20 @@
 <script src="<?php echo base_url() ?>assets/dist/js/demo.js"></script>
 <!-- select 2 -->
 <script src="<?php echo base_url() ?>assets/plugins/select2/js/select2.full.min.js"></script>
+
+<!-- datatable code -->
+    <script src="<?php echo base_url() ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url() ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo base_url() ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?php echo base_url() ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url() ?>assets/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?php echo base_url() ?>assets/dist/js/demo.js"></script>
+<script type="text/javascript">
+ $(document).ready(function() {
+            $('#example1').DataTable();
+          });
+</script>
 </body>
 </html>
