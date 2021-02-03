@@ -92,6 +92,8 @@ public function getClients(){
     // update contact data
      public function updateContact($id,$data){
         $this->db->where('id',$id);
+         $query = $this->db->update('tblcontacts',$data);
+  return $query;
         
      }
 

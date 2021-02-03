@@ -163,10 +163,7 @@ class ContactController extends CI_Controller
 
 
       public function updateContact(){
-       if ($this->form_validation->run('edit_contact') == FALSE){
-           
-       }else{
-         $f_name = $this->input->post('firstname');
+       $f_name = $this->input->post('firstname');
          $l_name = $this->input->post('lastname');
          $phone = $this->input->post('phonenumber');
          $email = $this->input->post('email');
@@ -182,20 +179,33 @@ class ContactController extends CI_Controller
 
          if(!empty($_FILES['image']['name'])){ 
           // File upload config 
-                 $filename =$_FILES['image']['name'];
-                $config['upload_path']   = 'uploads/client_profile_image/'; 
-                $config['allowed_types'] = 'jpg|png|jpeg|JPEG|JPG|PN'; 
-                  // print_r($config);
-                  // die;
-                // Load and initialize upload library 
-                $this->load->library('upload', $config);
-                $image=$this->upload->do_upload();
+          $path= "assets/uploads/profile_image/";
+         
+              $upload_file=$this->do_upload_image('image',$path);
+              // echo "<pre>";
+              // print_r($upload_file);
+              // die;
+              $image_name=$upload_file['upload_data']['file_name'];
 
+
+              // $source_path = $path.$image_name;
+              // $thumb_path = $path.'thumb/'; 
+              //       $thumb_width = 280; 
+              //       $thumb_height = 175; 
+              //       // Image resize config 
+              //       $config['image_library']    = 'gd2'; 
+              //       $config['source_image']     = $source_path; 
+              //       $config['new_image']         = $thumb_path; 
+              //       $config['maintain_ratio']     = FALSE; 
+              //       $config['width']            = $thumb_width; 
+              //       $config['height']           = $thumb_height;
+              //        // Load and initialize image_lib library 
+              //       $this->load->library('image_lib', $config);
                  
          }
-         print_r($image);
+         $data['profile_image'] = $image_name;
+         
          $udateData = $this->ContactsModel->updateContact($id,$data);
-       }
       }
      
       public function updateClientStatus($client_id){
@@ -211,30 +221,24 @@ class ContactController extends CI_Controller
 
 
       }
-      public function resizeImage($filename)
-   {
-      $source_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $filename;
-      $target_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/thumbnail/';
-      $config_manip = array(
-          'image_library' => 'gd2',
-          'source_image' => $source_path,
-          'new_image' => $target_path,
-          'maintain_ratio' => TRUE,
-          'create_thumb' => TRUE,
-          'thumb_marker' => '_thumb',
-          'width' => 150,
-          'height' => 150
-      );
+    
+   public function do_upload_image($file, $path='') {
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = 2048;
+        $config['encrypt_name'] = TRUE;
+//        $config['max_width'] = 1024;
+//        $config['max_height'] = 768;
+        $this->load->library('upload', $config);
 
+        if (!$this->upload->do_upload($file)) {
+            $data = array('error' => $this->upload->display_errors());
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+        }
 
-      $this->load->library('image_lib', $config_manip);
-      if (!$this->image_lib->resize()) {
-          echo $this->image_lib->display_errors();
-      }
-
-
-      $this->image_lib->clear();
-   }
+        return $data;
+    } 
 
     
    
