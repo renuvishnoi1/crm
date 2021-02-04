@@ -68,9 +68,9 @@
         <td></td>
         <td><?php echo $value['datecreated']; ?></td>
         <td>
-          <a href="<?php echo base_url('admin/edit_client/') ?><?php echo $value["userid"]; ?>" title="show">view </a>
-          <a href="<?php echo base_url('admin/edit_client/') ?><?php echo $value["userid"]; ?>" title="show">contacts</a>
-          <a href="<?php echo base_url('admin/delete_client/') ?><?php echo $value["userid"]; ?>" title="show" class="">delete</a>
+          <a href="<?php echo base_url('admin/edit_client/') ?><?php echo $value["userid"]; ?>" title="Show">view </a>
+          <a href="<?php echo base_url('admin/edit_client/') ?><?php echo $value["userid"]; ?>" title="Edit Contact">contacts</a>
+          <a href="<?php echo base_url('admin/delete_client/') ?><?php echo $value["userid"]; ?>" title="delete" class="">delete</a>
        </td>
       </tr>
       <?php 

@@ -26,7 +26,7 @@ class Authentication_model extends CI_Model
         $this->db->where('email', $email);
          $query = $this->db->get('tblstaff');
          $result = $query->row_array(); // get the row first
-
+        
     if (!empty($result) && password_verify($password, $result['password'])) {
         // if this username exists, and the input password is verified using password_verify
         return $result;

@@ -24,6 +24,7 @@
       <div class="card">
         <div class="card-header">
           <h4>Add New Contact</h4>
+           <h6><?php echo $contact->company; ?></h6>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -48,13 +49,15 @@
             <div class="form-group">
               <label>Phone</label>
               <input type="text" name="phonenumber" class="form-control" >
-              <span class="text-danger"><?php echo form_error('phonenumber'); ?></span>               
+              <span class="text-danger"><?php echo form_error('phonenumber'); ?></span>   
+              <input type="hidden" name="userid" value="<?php echo $contact->userid; ?>">            
             </div>
             <div class="form-group"> 
-              <button class="btn btn-info only-save customer-form-submiter">
+              <button class="btn btn-info ">
               Save </button>
             </div>
           </div>
+
           <div class="col-md-6">
            <div class="form-group">
             <label>Last Name</label>

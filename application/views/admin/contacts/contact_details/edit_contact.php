@@ -29,8 +29,7 @@
         <!-- /.card-header -->
         <div class="card-body">
           <form action="<?php echo base_url('admin/update_contact'); ?>" method="POST" enctype="multipart/form-data">
-           <div class="row">
-          
+           <div class="row">          
               <div class="col-md-6">
                  <div class="form-group">
                   <label>Profile Image</label>
@@ -80,6 +79,7 @@
                <input type="text" name="password" class="form-control" >
                <span class="text-danger"><?php echo form_error('password'); ?></span>
                <input type="hidden" name="id" value="<?php echo $contact->id; ?>">
+               <input type="hidden" name="userid" value="<?php echo $contact->userid; ?>"> 
               </div>
               </div>
          

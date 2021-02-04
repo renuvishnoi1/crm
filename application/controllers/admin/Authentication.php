@@ -32,9 +32,20 @@ class Authentication extends CI_Controller
                 $email= $this->input->post('email');
                 $password = $this->input->post('password');
                 $data = $this->Authentication_Model->login($email,$password);
-
+                  
             if($data){
+             
+              $session=array(
+                'email'=>$data['email'],                
+                'firstname'=>$data['firstname'],
+                'lastname'=>$data['lastname'],
 
+               
+            );
+              // echo "<pre>";
+              // print_r($session);
+              // die;
+            $this->session->set_userdata('sessiondata',$session);
                redirect('admin/dashboard');
             }
             }else{
@@ -53,7 +64,8 @@ class Authentication extends CI_Controller
     public function logout()  
     {  
         //removing session  
-        $this->session->unset_userdata('user');  
+
+        $this->session->unset_userdata('sessiondata');  
         redirect("admin/login");  
     } 
     public function admin_register(){

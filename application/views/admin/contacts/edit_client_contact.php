@@ -37,7 +37,7 @@
                   <!-- card-body -->
                   <div class="card-body">
                    <div class="_buttons">
-                    <a href="<?php echo base_url('admin/add_contact') ?>" class="btn btn-info mright5 test pull-left display-block">
+                    <a href="<?php echo base_url('admin/add_contact/') ?><?php echo $userid; ?>" class="btn btn-info mright5 test pull-left display-block">
                     New Contact</a>
                   </div>
                   <br>
@@ -72,11 +72,7 @@
                           <?php echo $value['last_login']; ?></td>
                           <td>
                             <a href="<?php echo base_url('admin/edit_contact/') ?><?php echo $value['id']; ?>" title="show">Edit</a>
-                            <?php if($value['is_primary']== 0){
-                              ?> <a href="<?php echo base_url('admin/delete_contact/') ?><?php echo $value['userid']; ?>/<?php echo $value['id']; ?>" title="show" class="">delete</a><?php
-                            }else{
-
-                            } ?>
+                             <a href="<?php echo base_url('admin/delete_contact/') ?><?php echo $value['userid']; ?>/<?php echo $value['id']; ?>" title="delete" class="">delete</a>
                           </td>
                         </tr>
                         <?php 
